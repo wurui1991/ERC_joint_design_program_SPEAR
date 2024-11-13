@@ -8,7 +8,7 @@
 ## The ERC Joint
 The Elastic Rolling Cam (ERC) is a rotational joint that can replicate an arbitrary rotational stiffness. It comprises a pair of spring-loaded cams. Each cam has an array of spherical teeth that engage with the other cam to prevent slippage between the two cams. When the cams roll against each other, the joint bends, while the variation in spring length and thus the spring-stored elastic energy generates rotational stiffness/torque. The torque response—rotation angle vs. torque—can be "programmed" by designing the cam geometry using our MATLAB program.
 
-![ERC Diagram](img/1)
+![ERC Diagram](ERC-design-program/img/1)
 
 ## Design
 

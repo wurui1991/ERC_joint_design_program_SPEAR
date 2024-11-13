@@ -8,18 +8,20 @@
 ## The ERC Joint
 The Elastic Rolling Cam (ERC) is a rotational joint that can replicate an arbitrary rotational stiffness. It comprises a pair of spring-loaded cams. Each cam has an array of spherical teeth that engage with the other cam to prevent slippage between the two cams. When the cams roll against each other, the joint bends, while the variation in spring length and thus the spring-stored elastic energy generates rotational stiffness/torque. The torque response—rotation angle vs. torque—can be "programmed" by designing the cam geometry using our MATLAB program.
 
-![ERC Diagram](ERC-design-program/img/1)
+![ERC Diagram](img/1.png)
+
+---
 
 ## Design
 
 ### Design Principle
 The design input is the torque response that you want the ERC to replicate, parameterized using two vectors: rotation angle vector and torque vector. The only design decision needed is selecting the spring parameters. By choosing appropriate springs, the MATLAB program can generate the ERC geometry to replicate any torque response.
 
-![Torque Response](img/2)
+![Torque Response](img/2.png)
 
 A linear-elastic spring has three independent parameters. Here we use $T_{\text{max}}$, $L_{\text{max}}$, and $\Delta L_{\text{max}}$, which are the spring's maximum tension (N), maximum length (mm), and maximum elongation (mm), as shown below.
 
-![Spring Parameters](img/3)
+![Spring Parameters](img/3.png)
 
 According to our study, the spring needs to satisfy two constraints determined from the target response:
 
@@ -33,9 +35,11 @@ where $\left|\left(\frac{d\tau}{d\theta}\right)_{\text{min}}\right|$ is the maxi
 
 Choosing a large Safety Factor reduces torque deviation from the desired response, as shown below (left), where negligible Root Mean Square deviation is achieved at SF = 2. However, a large SF results in an oversized ERC due to proportionality with spring length $L_{\text{max}}$. To balance size and performance, SF = 2 is the default, as supported by simulations with 100,000 randomly-generated target stiffness responses.
 
-![Design Chart](img/4)
+![Design Chart](img/4.png)
 
 Determining the three spring parameters $T_{\text{max}}$, $L_{\text{max}}$, and $\Delta L_{\text{max}}$ with two constraint equations gives the user freedom to decide one parameter, such as using a shorter spring for a smaller ERC, which requires a higher $T_{\text{max}}$.
+
+---
 
 ### Design Workflow
 
@@ -46,13 +50,11 @@ With the target response (rotation angle vs. torque curve) defined, follow these
 3. Input the spring parameters into `ERCdesigner.m` to generate the cam profile and simulate its torque response. Adjust SF if necessary.
 4. Use `ERCmodeller.m` and AutoCAD to generate a 3D printable model. See the modelling workflow below.
 
-![Workflow Diagram](img/5)
-
----
+![Workflow Diagram](img/5.png)
 
 ## Modelling Workflow
 
-![Modelling Parameters](img/6)
+![Modelling Parameters](img/6.png)
 
 1. Set modelling parameters in `ERCmodeller.m`, then run the script to generate CAD files (`convex.scr` and `concave.scr`).
 2. Open AutoCAD, run the generated `.scr` file to automatically build the model.
@@ -65,7 +67,7 @@ With the target response (rotation angle vs. torque curve) defined, follow these
 
 For accuracy, we recommend using a resin 3D printer (Masked Stereolithography/MSLA), such as the Formlabs Form series or Anycubic Photon Mono series, with a resolution of about 10 microns. A high-toughness resin is preferred for impact tolerance. The setup below uses Anycubic Photon Workshop to hollow the part for weight reduction. Ensure that liquid resin is drained, and lattice infill can add structural stability.
 
-![3D Print Setup](img/7)
+![3D Print Setup](img/7.png)
 
 An ERC contains three components: cams, springs, and pins for spring mounting. Bearings can reduce friction-induced hysteresis in torque response by allowing free pin rotation.
 
@@ -76,7 +78,7 @@ An ERC contains three components: cams, springs, and pins for spring mounting. B
 ### Target Response
 To design an ERC with the following response (high torque at ±90° for end-stopping):
 
-![Target Response](img/8)
+![Target Response](img/8.png)
 
 ### Spring Requirement
 Input this response and SF = 2 into `SpringSelector.m`, which outputs the required parameters. Assume two springs are used, each requiring $L_{\text{max}} \cdot T_{\text{max}} \ge 0.54 \, \text{N} \cdot \text{m}$ and $\Delta L_{\text{max}} \cdot T_{\text{max}} \ge 0.112 \, \text{N} \cdot \text{m}$.
@@ -87,12 +89,12 @@ Select a spring from [durovis.ch](https://www.durovis.ch) that meets these speci
 ### ERC Design
 Input the parameters into `ERCmodeller.m`, generate the cam profile, and verify that the response matches the target.
 
-![ERC Design Simulation](img/9)
+![ERC Design Simulation](img/9.png)
 
 ### ERC Modelling
 Follow the modelling workflow to obtain the model.
 
-![Final Model](img/10)
+![Final Model](img/10.png)
 
 ### Manufacture
 3D print the model with a 2 mm wall thickness. M3 bolts are used to mount the springs. The assembly weighs 27 g.

@@ -101,5 +101,83 @@ Follow the modelling workflow to obtain the model.
 
 ---
 
+# Mass Model
+
+In this section, we provide a computationally lightweight method to estimate the mass of an ERC based on the target response. The mass model (Eq. 13) considers the mass of the spring and cams. The cams' mass is determined by their size, which depends on the spring design. According to JIS B2704 (2000), the spring tension $F$ and spring constant $k$ (N/mm) can be calculated from the spring's geometry:
+
+```math
+F = \frac{\pi \sigma D^2}{8c\chi}
+```
+
+```math
+k = \frac{GD}{8nc^3}
+```
+
+where the spring geometrical parameters $D$ and $c$ are defined in the figure below, $\sigma$ is the shear stress, $G$ is the shear modulus, and $\chi = (4c - 1)/(4c - 4)$ is a stress correction factor.
+
+![Spring Geometry](img/11)
+
+Assuming the spring material is the most common A228 steel (piano wire/spring steel), the shear yielding stress is approximately $\sigma_{max} = 1,200 \, \text{N/mm}^2$, and $G = 80,000 \, \text{N/mm}^2$. Substituting $\sigma_{max}$ into Eq. 3, the maximum allowable tension $F_{max}$ in N is:
+
+```math
+F_{max} = \frac{\pi \sigma_{max} D^2}{8c\chi}
+```
+
+From this and Eq. 4, we can evaluate the maximum allowable spring extension $\Delta L_{max}$ in mm:
+
+```math
+\Delta L_{max} = \frac{F_{max}}{k} = \frac{n \pi \epsilon c D}{\chi}
+```
+
+where $\epsilon = \sigma_{max}/G$ is the shear strain at yield, and $n$ is the number of spring coils. Assuming the spring reaches zero tension at $L_{min}$ when the spring wires are fully packed, we have $L_{min} = nd + D_{ring}$. The spring's maximum length $L_{max}$ in mm is:
+
+```math
+L_{max} = L_{min} + \Delta L = \frac{nD}{c} \left(\frac{\pi \epsilon c^2}{\chi} + 1\right) + D_{ring}
+```
+
+Substituting Eq. 5 and 7 into Eq. 1, we obtain:
+
+```math
+D \geq \left(\frac{32 \, \text{SF} \left|\left(\frac{d\tau}{d\theta}\right)_{min}\right| c^3 \chi}{\pi \sigma_{max} \left(\frac{n}{c} \left(\frac{\pi \epsilon c^2}{\chi} + 1\right) + 1\right)}\right)^{1/3}
+```
+
+where we assume $D_{ring} = D$. Substituting Eq. 5 and 6 into Eq. 2 gives:
+
+```math
+D \geq \left(\frac{16 \, \text{SF} \Delta U c^2 \chi^2}{n \pi^2 \epsilon \sigma_{max}}\right)^{1/3}
+```
+
+From the spring diameter $D$, the spring mass can be evaluated as:
+
+```math
+\text{mass}_{\text{spring}} = \frac{n \pi^2 \rho D^3}{4c^2}
+```
+
+where $\rho = 0.0078 \, \text{g/mm}^3$ is the spring material's density.
+
+The mass of each cam is estimated by the mass of a cube with side length $L_{max}$, material density of $0.001 \, \text{g/mm}^3$ (3D printing resin), and porosity of 90% (accounting for the mounting holes and part hollowing). The ERC mass is thereby estimated as follows, with a safety factor of 1.5 introduced:
+
+```math
+\text{mass}_{\text{ERC}} = 1.5 \left(\frac{n \pi^2 \rho D^3}{4c^2} + 2 \cdot 10^{-4} L_{max}^3\right)
+```
+
+To simplify the mass model with a unique output from any input of $\left|\left(\frac{d\tau}{d\theta}\right)_{min}\right|$ and $\Delta U$, the number of independent spring geometrical parameters is reduced to one by setting $c = 10$, $L_{max} = 6D$, and $D_{ring} = D$. Then, the number of spring coils, which is constant as long as $L_{max} = 6D$, is calculated as:
+
+```math
+n = \frac{c(L_{max} - D_{ring})}{D \left(\frac{\pi \epsilon c^2}{\chi} + 1\right)} \approx 13
+```
+
+By setting $\text{SF} = 2$ and substituting the spring geometrical parameters into Eq. 8, 9, and 11, the mass of the ERC (in g) can be estimated as follows to realize a target response with maximum torque reduction rate $\left|\left(\frac{d\tau}{d\theta}\right)_{min}\right|$ in $\text{N} \cdot \text{mm}/\text{rad}$ and energy variation $\Delta U$ in mJ:
+
+```math
+\text{mass}_{\text{ERC}} = \max\left(0.22 \left|\left(\frac{d\tau}{d\theta}\right)_{min}\right|, \; 0.16 \Delta U, \; 25\right)
+```
+
+Here, $\text{mass}_{\text{ERC}}$ is expressed as the maximum of three values. The first two represent ERCs sized for the two independent requirements defined by Eq. 1 and 2, and the third sets a minimum ERC mass of 25 g, which is necessary to guarantee sufficient structural integrity and out-of-plane stiffness. In the estimated ERC mass, the spring contributes approximately 5%. This mass model (Eq. 13) can be implemented in a simulation program to estimate the mass of any ERC joints (in g) from the target response. 
+
+It should be noted that when an ERC uses multiple springs, the spring length can be reduced, and thus the cams' mass. However, similar effects can be achieved by modifying the spring geometry, e.g., using a shorter spring with higher tension, which is beyond the scope of this simplified mass model.
+
+---
+
 ## Acknowledgment
 This work is funded by the European Union’s Horizon Europe research and innovation programme under the project SPEAR (Grant No. 101119774), the Swiss National Science Foundation (SNSF) under the Eccellenza Grant (Grant No. 186865), and the ETH Zurich Research Grants (Grant No. ETH-15 20-2).

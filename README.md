@@ -161,7 +161,7 @@ The mass of each cam is estimated by the mass of a cube with side length $L_{max
 \text{mass}_{\text{ERC}} = 1.5 \left(\frac{n \pi^2 \rho D^3}{4c^2} + 2 \cdot 10^{-4} L_{max}^3\right)
 ```
 
-To simplify the mass model with a unique output from any input of $\left|\left(\frac{d\tau}{d\theta}\right)_{min}\right|$ and $\Delta U$, the number of independent spring geometrical parameters is reduced to one by setting $c = 10$, $L_{max} = 6D$, and $D_{ring} = D$. Then, the number of spring coils, which is constant as long as $L_{max} = 6D$, is calculated as:
+To simplify the mass model with a unique output from any input of $\left|\left(\frac{d\tau}{d\theta}\right)_ {min}\right|$ and $\Delta U$, the number of independent spring geometrical parameters is reduced to one by setting $c = 10$, $L_{max} = 6D$, and $D_{ring} = D$. Then, the number of spring coils, which is constant as long as $L_{max} = 6D$, is calculated as:
 
 ```math
 n = \frac{c(L_{max} - D_{ring})}{D \left(\frac{\pi \epsilon c^2}{\chi} + 1\right)} \approx 13

@@ -115,7 +115,7 @@ k = \frac{GD}{8nc^3}
 
 where the spring geometrical parameters $D$ and $c$ are defined in the figure below, $\sigma$ is the shear stress, $G$ is the shear modulus, and $\chi = (4c - 1)/(4c - 4)$ is a stress correction factor.
 
-![Spring Geometry](img/11)
+![Spring Geometry](img/11.png)
 
 Assuming the spring material is the most common A228 steel (piano wire/spring steel), the shear yielding stress is approximately $\sigma_{max} = 1,200 \, \text{N/mm}^2$, and $G = 80,000 \, \text{N/mm}^2$. Substituting $\sigma_{max}$ into Eq. 3, the maximum allowable tension $F_{max}$ in N is:
 

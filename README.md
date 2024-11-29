@@ -155,10 +155,10 @@ From the spring diameter $D$, the spring mass can be evaluated as:
 
 where $\rho = 0.0078 \, \text{g/mm}^3$ is the spring material's density.
 
-The mass of each cam is estimated by the mass of a cube with side length $L_{max}$, material density of $0.001 \, \text{g/mm}^3$ (3D printing resin), and porosity of 90% (accounting for the mounting holes and part hollowing). The ERC mass is thereby estimated as follows, with a safety factor of 1.5 introduced:
+The mass of each cam is estimated by the mass of a cube with side length $L_{max}$, material density of $0.001 \, \text{g/mm}^3$ (3D printing resin), and porosity of 90% (accounting for the mounting holes and part hollowing). The ERC mass is thereby estimated as follows:
 
 ```math
-\text{mass}_{\text{ERC}} = 1.5 \left(\frac{n \pi^2 \rho D^3}{4c^2} + 2 \cdot 10^{-4} L_{max}^3\right)
+\text{mass}_{\text{ERC}} = \left(\frac{n \pi^2 \rho D^3}{4c^2} + 2 \cdot 10^{-4} L_{max}^3\right)
 ```
 
 To simplify the mass model with a unique output from any input of $\left|\left(\frac{d\tau}{d\theta}\right)_ {min}\right|$ and $\Delta U$, the number of independent spring geometrical parameters is reduced to one by setting $c = 10$, $L_{max} = 6D$, and $D_{ring} = D$. Then, the number of spring coils, which is constant as long as $L_{max} = 6D$, is calculated as:
@@ -170,7 +170,7 @@ n = \frac{c(L_{max} - D_{ring})}{D \left(\frac{\pi \epsilon c^2}{\chi} + 1\right
 By setting $\text{SF} = 2$ and substituting the spring geometrical parameters into Eq. 8, 9, and 11, the mass of the ERC (in g) can be estimated as follows to realize a target response with maximum torque reduction rate $\left|\left(\frac{d\tau}{d\theta}\right)_{min}\right|$ in $\text{N} \cdot \text{mm}/\text{rad}$ and energy variation $\Delta U$ in mJ:
 
 ```math
-\text{mass}_{\text{ERC}} = \max\left(0.22 \left|\left(\frac{d\tau}{d\theta}\right)_{min}\right|, \; 0.16 \Delta U, \; 25\right)
+\text{mass}_{\text{ERC}} = \max\left(0.15 \left|\left(\frac{d\tau}{d\theta}\right)_{min}\right|, \; 0.11 \Delta U, \; 25\right)
 ```
 
 Here, $\text{mass}_{\text{ERC}}$ is expressed as the maximum of three values. The first two represent ERCs sized for the two independent requirements defined by Eq. 1 and 2, and the third sets a minimum ERC mass of 25 g, which is necessary to guarantee sufficient structural integrity and out-of-plane stiffness. In the estimated ERC mass, the spring contributes approximately 5%. This mass model (Eq. 13) can be implemented in a simulation program to estimate the mass of any ERC joints (in g) from the target response. 

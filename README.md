@@ -167,7 +167,7 @@ To simplify the mass model with a unique output from any input of $\left|\left(\
 n = \frac{c(L_{max} - D_{ring})}{D \left(\frac{\pi \epsilon c^2}{\chi} + 1\right)} \approx 24
 ```
 
-By setting $\text{SF} = 2$ and substituting the spring geometrical parameters into Eq. 8, 9, and 11, the mass of the ERC (in g) can be estimated as follows to realize a target response with maximum torque reduction rate $\left|\left(\frac{d\tau}{d\theta}\right)_{min}\right|$ in $\text{N} \cdot \text{mm}/\text{rad}$ and energy variation $\Delta U$ in mJ:
+By setting $\text{SF} = 2$ and substituting the spring geometrical parameters into Eq. 8, 9, and 11, the mass of the ERC (in g) can be estimated as follows to realize a target response with maximum torque reduction rate $\left|\left(\frac{d\tau}{d\theta}\right)_{min}\right|$ in $\text{N} \cdot \text{mm}/\text{rad}$ and energy variation $\Delta U$ in mJ, where a mass safety margin of 1.5 is included:
 
 ```math
 \text{mass}_{\text{ERC}} = \max\left(0.09 \left|\left(\frac{d\tau}{d\theta}\right)_{min}\right|, \; 0.11 \Delta U, \; 25\right)

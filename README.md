@@ -170,7 +170,7 @@ n = \frac{c(L_{max} - D_{ring})}{D \left(\frac{\pi \epsilon c^2}{\chi} + 1\right
 By setting $\text{SF} = 2$ and substituting the spring geometrical parameters into Eq. 8, 9, and 11, the mass of the ERC (in g) can be estimated as follows to realize a target response with maximum torque reduction rate $\left|\left(\frac{d\tau}{d\theta}\right)_{min}\right|$ in $\text{N} \cdot \text{mm}/\text{rad}$ and energy variation $\Delta U$ in mJ:
 
 ```math
-\text{mass}_{\text{ERC}} = \max\left(0.28 \left|\left(\frac{d\tau}{d\theta}\right)_{min}\right|, \; 0.33 \Delta U, \; 25\right)
+\text{mass}_{\text{ERC}} = \max\left(0.14 \left|\left(\frac{d\tau}{d\theta}\right)_{min}\right|, \; 0.17 \Delta U, \; 25\right)
 ```
 
 Here, $\text{mass}_{\text{ERC}}$ is expressed as the maximum of three values. The first two represent ERCs sized for the two independent requirements defined by Eq. 1 and 2, and the third sets a minimum ERC mass of 25 g, which is necessary to guarantee sufficient structural integrity and out-of-plane stiffness. In the estimated ERC mass, the spring contributes approximately 5%. This mass model (Eq. 13) can be implemented in a simulation program to estimate the mass of any ERC joints (in g) from the target response. 

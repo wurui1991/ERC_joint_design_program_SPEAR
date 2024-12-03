@@ -35,11 +35,19 @@ fprintf(fileID, '0,0,%f\n', -2*H/3);  % Specify second point (destination)
 fprintf(fileID, '_circle 0,0,%f %f\n', H / 2, Rpivot);
 fprintf(fileID, '_extrude\n_last\n\n%d\n', -1*H);
 
-% Bearing hole; Draw a circle at 0,0,H/2, with radius Rpivot, and extrude it -Z by H
+% Bearing hole; Draw a circle at 0,0,H/6, with radius Rbearing, and extrude it -Z by Hbearing
 fprintf(fileID, '_circle 0,0,%f %f\n', H / 6, Rbearing);
 fprintf(fileID, '_extrude\n_last\n\n%d\n', Hbearing);
 fprintf(fileID, '_circle 0,0,%f %f\n', -H / 6, Rbearing);
 fprintf(fileID, '_extrude\n_last\n\n%d\n', -Hbearing);
+
+% Potentiometer slot; Draw profile at 0,0,H/2, and extrude it -Z by H
+fprintf(fileID, '_3dpoly\n');
+for i = 1:length(PMX)
+    fprintf(fileID, '%f,%f,%f\n', PMX(i), PMY(i), H / 6+Hbearing+1);
+end
+fprintf(fileID, 'c\n'); % Close the polyline
+fprintf(fileID, '_extrude\n_last\n\n%d\n', H/3);
 
 % Tooth
 for i = 1:size(toothall, 2) % number of tooth
@@ -95,7 +103,7 @@ for i = 1:length(heady)
     end
 end
 fprintf(fileID, 'c\n'); % Close the polyline
-fprintf(fileID, '_extrude\n_last\n\n%d\n', -1*headx(1)-L+Larm);
+fprintf(fileID, '_extrude\n_last\n\n%d\n', -1*headx(1)-L+Larm-0.1);
 
 % % Cosmetic cuts;
 % fprintf(fileID, 'ucs y\n\n'); % Align UCS to make drawing in YZ plane easier

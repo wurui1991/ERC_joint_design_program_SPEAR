@@ -27,6 +27,10 @@ Rbearing2 = 3;
 L = Larm+Rbearing+2; % length of ERC from pivot to the mounting hole
 L2 = Larm+Rbearing2+1; % length of ERC from pivot to the mounting hole
 
+% profile of potentiometer mounting slot (Alps Alpine RK09K1130A70)
+PMX = [5.5 -7.5 -7.5 5.5 5.5];
+PMY = [4.9 4.9 -4.9 -4.9 4.9];
+
 %% Generate cam contour with equally spaced points along the curve
 XY_mm = XY*1000; % unit covertion to [mm]
 nPoints = size(XY_mm,2)*2;

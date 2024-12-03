@@ -95,7 +95,7 @@ for i = 1:length(heady)
     end
 end
 fprintf(fileID, 'c\n'); % Close the polyline
-fprintf(fileID, '_extrude\n_last\n\n%d\n', -1*headx(1)-L2+Larm);
+fprintf(fileID, '_extrude\n_last\n\n%d\n', -1*headx(1)-L2+Larm-0.1);
 
 % % Cosmetic cuts;
 % fprintf(fileID, 'ucs y\n\n'); % Align UCS to make drawing in YZ plane easier

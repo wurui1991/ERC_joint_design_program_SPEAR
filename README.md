@@ -179,5 +179,23 @@ It should be noted that when an ERC uses multiple springs, the spring length can
 
 ---
 
+## Sensor Integration
+
+This section describes how to integrate an angular sensor into an ERC to measure its bending angle. Thanks to the symmetry of the two cams, the rotation of the spring with respect to either of the cams always equals half of the ERC's bending angle. An angular sensor is therefore integrated into the cam to measure the rotation of the spring's pivot. This can be mechanically implemented in various ways, as long as it allows the sensor to accurately follow the spring's rotation without inducing excessive mechanical resistance to bending. One example is shown in the figure below. To create the 3D printable model, the last section of code `Step3_ERCmodeller` should call `ERCscr_sensorised_convex_potentiometer` and `ERCscr_sensorised_concave`, which generate the `.src` script for Cam 1 (with potentiometer and convex tooth) and Cam 2 (with concave tooth), respectively. The model parameters are illustrated by the red text in the figure below. The 3D and 2D sketch of the coupler is provided in this repository. Note that in the model below, two M2 bolts in Cam 1 provide an extra end-stopping effect, which is necessary for a robust prototype.
+
+![Figure](img/12.png)
+
+The angular sensor used is the Alps Alpine RK09K1130A70 potentiometer, designed to have a linear rotation-resistance mapping, but with several percent of nonlinearity. This can be calibrated using the function below, which is determined by measuring five potentiometers:
+
+```math
+       Pivot\_rotation = 0.2097(Pin3-512) + 2.243E-6(Pin3-512)^2 + 1.095E-7(Pin3-512)^3
+```
+
+where \(Pin3\) is the reading from Arduino Nano analogue pin A3, which has a range of 0-1023. Note that this function works with the pinout illustrated in the figure above. 
+
+The Arduino code `ERC_sensorised.ino` included in this repository outputs the ERC bending angle through the serial port, which can be visualized in real time using the Matlab code `ERC_demo.m`.
+
+---
+
 ## Acknowledgment
 This work is funded by the European Union’s Horizon Europe research and innovation programme under the project SPEAR (Grant No. 101119774), the Swiss National Science Foundation (SNSF) under the Eccellenza Grant (Grant No. 186865), and the ETH Zurich Research Grants (Grant No. ETH-15 20-2).

@@ -16,7 +16,7 @@ SF = 2; % default: 2
 
 %% Input 2/2: Required Response
 
-sensorised = 1; % effects the mass estimation: 1-> with sensor, 0-> w/o sensor
+sensorised = 1; % effects the mass estimation: 1-> with angular sensor (potentiometer), 0-> w/o sensor
 
 M_max=0.05; % Target maximum moment (N*m)
 % Rotation of one cam (1/2 of total bending), in radians

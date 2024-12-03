@@ -10,11 +10,13 @@
 % "SPEAR: Spatial Perception & Embodied Autonomy Research"
 % =========================================================================
 
-%% Input 1/2: Target Design Alignment Index (DAI)
+%% Input 1/2: Target Safety Factor (SF)
 
 SF = 2; % default: 2
 
 %% Input 2/2: Required Response
+
+sensorised = 1; % effects the mass estimation: 1-> with sensor, 0-> w/o sensor
 
 M_max=0.05; % Target maximum moment (N*m)
 % Rotation of one cam (1/2 of total bending), in radians
@@ -43,7 +45,7 @@ fprintf('   Max length & tension:       L_max*T_max >= %.3g N*m\n', 4 * M_slp * 
 fprintf('   Max. elongation & tension: ΔL_max*T_max >= %.3g N*m\n\n', 2 * (max(DU) - min(DU)) * SF);
 fprintf('Mass model estimation (this is only a guideline, as spring selection is not unique):\n');
 fprintf('Spring length: %.2g mm, coil diameter: %.1g mm, wire diameter: %.1g mm, ', D*10, D, D/5);
-fprintf('ERC mass: %.2g g\n\n', max(max(0.09 * M_slp*1000, 0.11 * (max(DU) - min(DU))*1000), 25));
+fprintf('ERC mass: %.2g g\n\n', max(max(0.14 * M_slp*1000, 0.17 * (max(DU) - min(DU))*1000), 25)+sensorised*10);
 fprintf('For Max. torque reduction rate = %.3g N*m/rad\n', M_slp);
 fprintf('and target energy variation = %.3g J\n', (max(DU) - min(DU)));
 fprintf('with Safety Factor SF = %.3g \n', SF);

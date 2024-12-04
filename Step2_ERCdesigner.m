@@ -14,7 +14,7 @@
 %% INPUT 1/2: Spring properties
 
 n_spring = 1; % No. of springs
-Lmax = 43.5 /1000; % Spring max length (m)
+Lmax = 43.5 /1000; % Spring max length (m), including the length of coupler (if sensor integrated)
 D_L_max = 20 /1000; % Spring max elongation (Tmax/k) (m)
 Tmax = 35.09 * n_spring; % Spring max tension * no. of springs (N)
 

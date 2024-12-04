@@ -185,11 +185,11 @@ It should be noted that when an ERC uses multiple springs, the spring length can
 
 This section describes how to integrate an angular sensor into an ERC to measure its bending angle. Thanks to the symmetry of the two cams, the rotation of the spring with respect to either of the cams always equals half of the ERC's bending angle. An angular sensor is therefore integrated into the cam to measure the rotation of the spring's pivot. This can be mechanically implemented in various ways, as long as it allows the sensor to accurately follow the spring's rotation without inducing excessive mechanical resistance to bending. One example is shown in the figure below. To create the 3D printable model, the last section of code `Step3_ERCmodeller` should call `ERCscr_sensorised_convex_potentiometer` and `ERCscr_sensorised_concave`, which generate the `.src` scripts for Cam 1 (with potentiometer and convex tooth) and Cam 2 (with concave tooth), respectively. The model parameters are illustrated by the red text in the figure below. The 3D and 2D sketch of the coupler is provided in this repository. 
 
-Note that in the model below, two M2 bolts in Cam 1 provide an extra end-stopping effect, which is necessary for a robust prototype. The locker bolt and nut locks the coupler to the potentiometer shaft. The shaft should be close to the neutral position at zero ERC bending angle, to prevent over-rotating it. The shaft diameter need to be shaved/sanded down by 0.1-0.2 mm to fit in the bearing hole.
+Note that in the model below, two M2 bolts in Cam 1 provide an extra end-stopping effect, which is necessary for a robust prototype. The locker bolt and nut locks the coupler to the potentiometer shaft. The shaft should be close to the neutral position at zero ERC bending angle, to prevent over-rotating it. The shaft diameter need to be shaved/sanded down by 0.1-0.2 mm to fit in the bearing hole. It is recommended to assemble Cam1 and coupler first, then move on to Cam2.
 
 ![Figure](img/12.png)
 
-The angular sensor used is the Alps Alpine RK09K1130A70 potentiometer, designed to have a linear rotation-resistance mapping, but with several percent of nonlinearity. This can be calibrated using the function below, which is determined by measuring five potentiometers:
+The angular sensor used is the Alps Alpine RK09K1130A70 potentiometer, is designed to have a linear rotation-resistance mapping, but with several percent of nonlinearity. This can be calibrated using the function below, which is determined by measuring five potentiometers:
 
 ```math
        Pivot\_rotation = 0.2097(Pin3-512) + 2.243E-6(Pin3-512)^2 + 1.095E-7(Pin3-512)^3

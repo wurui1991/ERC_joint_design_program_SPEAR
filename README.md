@@ -199,6 +199,8 @@ where $Pin3$ is the reading from Arduino Nano analogue pin A3, which has a range
 
 The Arduino code `ERC_sensorised.ino` included in this repository outputs the ERC bending angle through the serial port, which can be visualized in real time using the Matlab code `ERC_demo.m`.
 
+Note that the length of the coupler (5 mm) is included in $L_{\text{max}}$, but not included in $\Delta L_{\text{max}}$, i.e., the length of the actual spring used in a sensorised ERC should be 5 mm shorter than $L_{\text{max}}$ . In $\text{mass}_{\text{ERC}}$, 10 g should be added to account for the mass of bearings (5 g), sensor (2 g), coupler, and bolts. 
+
 ---
 
 ## Acknowledgment

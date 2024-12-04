@@ -195,7 +195,7 @@ The angular sensor used is the Alps Alpine RK09K1130A70 potentiometer, designed 
        Pivot\_rotation = 0.2097(Pin3-512) + 2.243E-6(Pin3-512)^2 + 1.095E-7(Pin3-512)^3
 ```
 
-where $Pin3$ is the reading from Arduino Nano analogue pin A3, which has a range of 0-1023. Note that this function works with the pinout illustrated in the figure above. The DNG and 5V should not be swapped.
+where $Pin3$ is the reading from Arduino Nano analogue pin A3, which has a range of 0-1023. Note that this function works with the pinout illustrated in the figure above. The GND and 5V should not be swapped.
 
 The Arduino code `ERC_sensorised.ino` included in this repository outputs the ERC bending angle through the serial port, which can be visualized in real time using the Matlab code `ERC_demo.m`.
 

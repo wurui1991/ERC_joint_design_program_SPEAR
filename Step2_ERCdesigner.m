@@ -11,14 +11,14 @@
 
 %% !! NOTE: run SpringElector.m first before you run this program
 
-%% INPUT: Spring properties
+%% INPUT 1/2: Spring properties
 
 n_spring = 1; % No. of springs
 Lmax = 43.5 /1000; % Spring max length (m)
 D_L_max = 20 /1000; % Spring max elongation (Tmax/k) (m)
 Tmax = 35.09 * n_spring; % Spring max tension * no. of springs (N)
 
-%% INPUT: Resolution (default: 0.1*pi/180)
+%% INPUT 2/2: Resolution (default: 0.1*pi/180)
 
 dtheta = 0.1*pi/180;
 

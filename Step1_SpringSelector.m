@@ -10,14 +10,14 @@
 % "SPEAR: Spatial Perception & Embodied Autonomy Research"
 % =========================================================================
 
-%% Input 1/2: Target Safety Factor (SF)
+%% Input 1/3: Target Safety Factor (SF)
 
 SF = 2; % default: 2
 
-%% Input 2/2: Required Response
-
-% Does the ERC has integrated angular sensor (potentiometer): 1->Y, 0->N
-sensorised = 1; % influences the mass estimation
+%% Input 2/3: Required Response
+% Need: 1) Theta_EA, Rotation of one cam (1/2 of total bending), in radians
+%       2) M_EA, Target torque profile (N*m)
+% below is an example
 
 M_max=0.05; % Target maximum moment (N*m)
 % Rotation of one cam (1/2 of total bending), in radians
@@ -26,9 +26,12 @@ Theta_EA=(-15:0.25:15);
 M_EA=(15^2-Theta_EA.^2).^0.5/30+0.5;
 Theta_EA=[0.1 10 Theta_EA+30]*pi/180; % rotation of one rolamite (1/2 of total bending)
 M_EA=[1 1 M_EA]*M_max; % normalised moment profile * M_max
-M_EA(end)=5*M_max;
-M_EA=[fliplr(-M_EA) M_EA];
-Theta_EA=[fliplr(-Theta_EA) Theta_EA];
+M_EA(end)=5*M_max; % adding an end-stopping effect
+M_EA=[fliplr(-M_EA) M_EA]; % generate symmetrical profile
+Theta_EA=[fliplr(-Theta_EA) Theta_EA]; % generate symmetrical profile
+
+%% Input 3/3: Does the ERC has integrated angular sensor (potentiometer): 1->Y, 0->N
+sensorised = 1; % influences the mass estimation
 
 %% Spring Requirement Evaluation
 

@@ -44,10 +44,15 @@ fprintf('Spring requirement:\n');
 fprintf('   Max length & tension:       L_max*T_max >= %.3g N*m\n', 4 * M_slp * SF);
 fprintf('   Max. elongation & tension: ΔL_max*T_max >= %.3g N*m\n\n', 2 * (max(DU) - min(DU)) * SF);
 fprintf('Mass model estimation (this is only a guideline, as spring selection is not unique):\n');
-fprintf('Spring length: %.2g mm, coil diameter: %.1g mm, wire diameter: %.1g mm, ', D*10, D, D/5);
-fprintf('ERC mass: %.2g g\n\n', max(max(0.14 * M_slp*1000, 0.17 * (max(DU) - min(DU))*1000), 25)+sensorised*10);
-fprintf('For Max. torque reduction rate = %.3g N*m/rad\n', M_slp);
-fprintf('and target energy variation = %.3g J\n', (max(DU) - min(DU)));
+fprintf('L_max: %.2g mm, coil diameter: %.1g mm, wire diameter: %.1g mm, ', D*10, D, D/5);
+fprintf('ERC mass: %.2g g\n', max(max(0.14 * M_slp*1000, 0.17 * (max(DU) - min(DU))*1000), 25)+sensorised*10);
+if sensorised == 1
+    fprintf('Note: L_max includes the length of coupler, and ERC mass includes 10 g of sensor accesories\n\n');
+else
+    fprintf('\n');
+end
+fprintf('For Max. torque reduction rate %.3g N*m/rad\n', M_slp);
+fprintf('and target energy variation %.3g J\n', (max(DU) - min(DU)));
 fprintf('with Safety Factor SF = %.3g \n', SF);
 
 figure

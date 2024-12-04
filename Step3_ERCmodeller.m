@@ -88,10 +88,18 @@ concavetoothall = [concavetoothall.*[1 -1 1]' concavetoothall.*[1 -1 -1]']; % co
 % ERC with convex tooth
 toothall = convextoothall; % initialise with convex tooth
 filename = 'convex.scr';
-ERCscr_sensorised_convex_potentiometer % generate the AutoCAD .scr script
+if sensorised == 1
+    ERCscr_sensorised_convex_potentiometer % generate the AutoCAD .scr script
+else
+    ERCscr
+end
 
 % ERC with concave tooth
 toothall = concavetoothall; % initialise with concave tooth
 filename = 'concave.scr';
 Rtooth = Rtooth+0.025; % adding a small tolerance (0.05 mm) to tooth radius
-ERCscr_sensorised_concave % generate the AutoCAD .scr script
+if sensorised == 1
+    ERCscr_sensorised_concave % generate the AutoCAD .scr script
+else
+    ERCscr
+end   

@@ -29,7 +29,7 @@ M_EA=[fliplr(-M_EA) M_EA]; % generate symmetrical profile
 Theta_EA=[fliplr(-Theta_EA) Theta_EA]; % generate symmetrical profile
 
 %% Input 3/4: Does the ERC has integrated angular sensor (potentiometer): 1->Y, 0->N
-sensorised = 0; % influences the mass estimation
+sensorised = 1; % influences the mass estimation
 
 %% INPUT 4/4: Resolution (default: 0.1*pi/180)
 dtheta = 0.1*pi/180;

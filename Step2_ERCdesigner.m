@@ -11,16 +11,12 @@
 
 %% !! NOTE: run SpringElector.m first before you run this program
 
-%% INPUT 1/2: Spring properties
+%% INPUT: Spring properties
 
 n_spring = 1; % No. of springs
 Lmax = 43.5 /1000; % Spring max length (m), including the length of coupler (if sensor integrated)
 D_L_max = 20 /1000; % Spring max elongation (Tmax/k) (m)
 Tmax = 35.09 * n_spring; % Spring max tension * no. of springs (N)
-
-%% INPUT 2/2: Resolution (default: 0.1*pi/180)
-
-dtheta = 0.1*pi/180;
 
 %% Derive spring parameters
 k=Tmax/D_L_max; % stiffness (N/m) * no. of springs
@@ -29,13 +25,12 @@ Uspring=0.5*k*D_L_max^2; % spring energy capacity (J)
 
 %% Design initialisation
 
-% Interpolate the target torque according to resolution
-theta = (Theta_EA(1):dtheta:Theta_EA(end)); % acquisition points
-M = interp1(Theta_EA, M_EA, theta, 'linear'); % target torque (N*m)
-DU = cumtrapz(theta*2, M);% incremental energy starting from theta = 0 (J)
-
 % Display SF achieved by the selected spring
-SF_achieved = min((Tmax*Lmax)/4/M_slp,Uspring/(max(DU)-min(DU)));
+if M_slp <= 0
+    SF_achieved = Uspring/(max(DU)-min(DU));
+else
+    SF_achieved = min((Tmax*Lmax)/4/M_slp,Uspring/(max(DU)-min(DU)));
+end
 fprintf('\nSF achieved by the selected spring: %.3g\n\n', SF_achieved);
 if SF_achieved < 1
     error('SF < 1, design can not proceed!');

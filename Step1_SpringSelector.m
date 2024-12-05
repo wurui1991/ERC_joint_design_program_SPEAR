@@ -10,11 +10,11 @@
 % "SPEAR: Spatial Perception & Embodied Autonomy Research"
 % =========================================================================
 
-%% Input 1/3: Target Safety Factor (SF)
+%% Input 1/4: Target Safety Factor (SF)
 
 SF = 2; % default: 2
 
-%% Input 2/3: Required Response
+%% Input 2/4: Required Response
 % Need: 1) Theta_EA, Rotation of one cam (1/2 of total bending), in radians
 %       2) M_EA, Target torque profile (N*m)
 % below is an example
@@ -30,13 +30,19 @@ M_EA(end)=5*M_max; % adding an end-stopping effect
 M_EA=[fliplr(-M_EA) M_EA]; % generate symmetrical profile
 Theta_EA=[fliplr(-Theta_EA) Theta_EA]; % generate symmetrical profile
 
-%% Input 3/3: Does the ERC has integrated angular sensor (potentiometer): 1->Y, 0->N
-sensorised = 1; % influences the mass estimation
+%% Input 3/4: Does the ERC has integrated angular sensor (potentiometer): 1->Y, 0->N
+sensorised = 0; % influences the mass estimation
+
+%% INPUT 4/4: Resolution (default: 0.1*pi/180)
+
+dtheta = 0.1*pi/180;
 
 %% Spring Requirement Evaluation
 
-% Target incremental energy starting from Theta_EA(1)
-DU = cumtrapz(Theta_EA * 2, M_EA);  
+% Interpolate the target torque according to resolution
+theta = (Theta_EA(1):dtheta:Theta_EA(end)); % acquisition points
+M = interp1(Theta_EA, M_EA, theta, 'linear'); % target torque (N*m)
+DU = cumtrapz(theta*2, M);% incremental energy starting from theta = 0 (J)
 % Target torque variation rate
 slopes = diff(M_EA) ./ diff(Theta_EA * 2);  
 % Maximum target torque reduction rate

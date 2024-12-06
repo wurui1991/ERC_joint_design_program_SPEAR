@@ -21,11 +21,16 @@ Rarm = 8; % inner radius of mountng hole
 R = 10; % outer radius around mounting hoSCRIP
 Rpivot = 4.5; % radius of spring pivot hole
 Rpivot2 = 2.5; % radius of spring pivot hole
-Rbearing = 5;
-Hbearing = 3;
-Rbearing2 = 3;
-L = Larm+Rbearing+2; % length of ERC from pivot to the mounting hole
-L2 = Larm+Rbearing2+1; % length of ERC from pivot to the mounting hole
+Rbearing = 5; % outer radius of bearing on the cam with sensor
+Hbearing = 3; % depth of bearing mounting hole
+Rbearing2 = 3; % outer radius of bearing on the cam without sensor
+
+if sensorised == 0
+    L = Larm+2; % length from pivot to the mounting hole
+else
+    L = Larm+Rbearing+2;
+end
+L2 = Larm+Rbearing2+1; % length from pivot to the mounting hole
 
 % profile of potentiometer mounting slot (Alps Alpine RK09K1130A70)
 PMX = [5.5 -7.5 -7.5 5.5 5.5];
@@ -97,7 +102,7 @@ end
 % ERC with concave tooth
 toothall = concavetoothall; % initialise with concave tooth
 filename = 'concave.scr';
-Rtooth = Rtooth+0.025; % adding a small tolerance (0.05 mm) to tooth radius
+Rtooth = Rtooth+0.05; % adding a small tolerance (0.05 mm) to tooth radius
 if sensorised == 1
     ERCscr_sensorised_concave % generate the AutoCAD .scr script
 else

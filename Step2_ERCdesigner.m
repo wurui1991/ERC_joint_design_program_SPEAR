@@ -12,13 +12,17 @@
 %% !! NOTE: run SpringElector.m first before you run this program
 
 %% INPUT: Spring properties
+%%% Type 5/1/1 from durovis.ch
+Lmax = (30.27+L_coupler*sensorised) /1000; % Spring max length (m)
+D_L_max = 15.87 /1000; % Spring max elongation (Tmax/k) (m)
+Tmax = 18.82 * n_spring; % Spring max tension * no. of springs (N)
 
-n_spring = 1; % No. of springs
-Lmax = 43.5 /1000; % Spring max length (m), including the length of coupler (if sensor integrated)
-D_L_max = 20 /1000; % Spring max elongation (Tmax/k) (m)
-Tmax = 35.09 * n_spring; % Spring max tension * no. of springs (N)
+% %%% Type 8/1/1 from durovis.ch
+% Lmax = (38.5+L_coupler*sensorised) /1000; % Spring max length (m), including the length of coupler (if sensor integrated)
+% D_L_max = 20 /1000; % Spring max elongation (Tmax/k) (m)
+% Tmax = 35.09 * n_spring; % Spring max tension * no. of springs (N)
 
-%% Derive spring parameters
+%% Derived spring parameters
 k=Tmax/D_L_max; % stiffness (N/m) * no. of springs
 Lmin=Lmax-D_L_max; % Spring's theoretical length at zero tension (m)
 Uspring=0.5*k*D_L_max^2; % spring energy capacity (J)
@@ -44,7 +48,7 @@ XY = [0;R]; % first point of rolamite in cartesian coordinate
 M_actual = nan;
 rot = [cos(dtheta) sin(dtheta); -sin(dtheta) cos(dtheta)]; % rot matrix for c.w. dtheta
 
-%% Design
+%% Cam Design
 
 for i=1:length(M)
     if i ~= 1

@@ -26,10 +26,10 @@ A linear-elastic spring has three independent parameters. Here we use $T_{\text{
 According to our study, the spring needs to satisfy two constraints determined from the target response:
 
 ```math
-\frac{F_{\text{max}} \cdot L_{\text{max}}}{4} \ge \text{SF} \cdot \left|\left(\frac{d\tau}{d\theta}\right)_{\text{min}}\right|
+\frac{F_{\text{max}} \cdot L_{\text{max}}}{4} \ge \text{SF} \cdot \left|\left(\frac{d\tau}{d\theta}\right)_{\text{min}}\right| \tag{1}
 ```
 ```math
-\frac{F_{\text{max}} \cdot \Delta L_{\text{max}}}{2} \ge \text{SF} \cdot \Delta U
+\frac{F_{\text{max}} \cdot \Delta L_{\text{max}}}{2} \ge \text{SF} \cdot \Delta U \tag{2}
 ```
 where $`\left|\left(\frac{d\tau}{d\theta}\right)_{\text{min}}\right|`$ is the maximum torque reduction rate of the desired response (N·m/rad), and $\Delta U$ is the maximum elastic energy variation required by the desired response (J). When multiple springs are used in an ERC, $T_{\text{max}}$ relates to their combined effect. The Safety Factor (SF) has a default value of SF = 2.
 
@@ -106,11 +106,11 @@ Follow the modelling workflow to obtain the model.
 In this section, we provide a computationally lightweight method to estimate the mass of an ERC based on the target response. The mass model (Eq. 13) considers the mass of the spring and cams. The cams' mass is determined by their size, which depends on the spring design. According to JIS B2704 (2000), the spring tension $F$ and spring constant $k$ (N/mm) can be calculated from the spring's geometry:
 
 ```math
-F = \frac{\pi \sigma D^2}{8c\chi}
+F = \frac{\pi \sigma D^2}{8c\chi} \tag{3}
 ```
 
 ```math
-k = \frac{GD}{8nc^3}
+k = \frac{GD}{8nc^3} \tag{4}
 ```
 
 where the spring geometrical parameters $D$ and $c$ are defined in the figure below, $\sigma$ is the shear stress, $G$ is the shear modulus, and $\chi = (4c - 1)/(4c - 4)$ is a stress correction factor.
@@ -120,37 +120,37 @@ where the spring geometrical parameters $D$ and $c$ are defined in the figure be
 Assuming the spring material is the most common A228 steel (piano wire/spring steel), the shear yielding stress is approximately $\sigma_{max} = 1,200 \, \text{N/mm}^2$, and $G = 80,000 \, \text{N/mm}^2$. Substituting $\sigma_{max}$ into Eq. 3, the maximum allowable tension $F_{max}$ in N is:
 
 ```math
-F_{max} = \frac{\pi \sigma_{max} D^2}{8c\chi}
+F_{max} = \frac{\pi \sigma_{max} D^2}{8c\chi} \tag{5}
 ```
 
 From this and Eq. 4, we can evaluate the maximum allowable spring extension $\Delta L_{max}$ in mm:
 
 ```math
-\Delta L_{max} = \frac{F_{max}}{k} = \frac{n \pi \epsilon c D}{\chi}
+\Delta L_{max} = \frac{F_{max}}{k} = \frac{n \pi \epsilon c D}{\chi} \tag{6}
 ```
 
 where $\epsilon = \sigma_{max}/G$ is the shear strain at yield, and $n$ is the number of spring coils. Assuming the spring reaches zero tension at $L_{min}$ when the spring wires are fully packed, we have $L_{min} = nd + D_{ring}$. The spring's maximum length $L_{max}$ in mm is:
 
 ```math
-L_{max} = L_{min} + \Delta L = \frac{nD}{c} \left(\frac{\pi \epsilon c^2}{\chi} + 1\right) + D_{ring}
+L_{max} = L_{min} + \Delta L = \frac{nD}{c} \left(\frac{\pi \epsilon c^2}{\chi} + 1\right) + D_{ring} \tag{7}
 ```
 
 Substituting Eq. 5 and 7 into Eq. 1, we obtain:
 
 ```math
-D \geq \left(\frac{32 \, \text{SF} \left|\left(\frac{d\tau}{d\theta}\right)_{min}\right| c^3 \chi}{\pi \sigma_{max} \left(\frac{n}{c} \left(\frac{\pi \epsilon c^2}{\chi} + 1\right) + 1\right)}\right)^{1/3}
+D \geq \left(\frac{32 \, \text{SF} \left|\left(\frac{d\tau}{d\theta}\right)_{min}\right| c^3 \chi}{\pi \sigma_{max} \left(\frac{n}{c} \left(\frac{\pi \epsilon c^2}{\chi} + 1\right) + 1\right)}\right)^{1/3} \tag{8}
 ```
 
 where we assume $D_{ring} = D$. Substituting Eq. 5 and 6 into Eq. 2 gives:
 
 ```math
-D \geq \left(\frac{16 \, \text{SF} \Delta U c^2 \chi^2}{n \pi^2 \epsilon \sigma_{max}}\right)^{1/3}
+D \geq \left(\frac{16 \, \text{SF} \Delta U c^2 \chi^2}{n \pi^2 \epsilon \sigma_{max}}\right)^{1/3} \tag{9}
 ```
 
 From the spring diameter $D$, the spring mass can be evaluated as:
 
 ```math
-\text{mass}_{\text{spring}} = \frac{n \pi^2 \rho D^3}{4c^2}
+\text{mass}_{\text{spring}} = \frac{n \pi^2 \rho D^3}{4c^2} \tag{10}
 ```
 
 where $\rho = 0.0078 \, \text{g/mm}^3$ is the spring material's density.
@@ -158,19 +158,19 @@ where $\rho = 0.0078 \, \text{g/mm}^3$ is the spring material's density.
 The mass of each cam is estimated by the mass of a cube with side length $L_{max}$, material density of $0.001 \, \text{g/mm}^3$ (3D printing resin), and porosity of 50% (accounting for the mounting holes and part hollowing). The ERC mass is thereby estimated as follows:
 
 ```math
-\text{mass}_{\text{ERC}} = \left(\frac{n \pi^2 \rho D^3}{4c^2} + 2 \cdot 10^{-4} L_{max}^3\right)
+\text{mass}_{\text{ERC}} = \left(\frac{n \pi^2 \rho D^3}{4c^2} + 2 \cdot 10^{-4} L_{max}^3\right) \tag{11}
 ```
 
 To simplify the mass model with a unique output from any input of $\left|\left(\frac{d\tau}{d\theta}\right)_ {min}\right|$ and $\Delta U$, the number of independent spring geometrical parameters is reduced to one by setting $c = 5$, $L_{max} = 10D$, and $D_{ring} = D$. Then, the number of spring coils, which is constant as long as $L_{max} = 10D$, is calculated as:
 
 ```math
-n = \frac{c(L_{max} - D_{ring})}{D \left(\frac{\pi \epsilon c^2}{\chi} + 1\right)} \approx 24
+n = \frac{c(L_{max} - D_{ring})}{D \left(\frac{\pi \epsilon c^2}{\chi} + 1\right)} \approx 24 \tag{12}
 ```
 
 By setting $\text{SF} = 2$ and substituting the spring geometrical parameters into Eq. 8, 9, and 11, the mass of the ERC (in g) can be estimated as follows to realize a target response with maximum torque reduction rate $\left|\left(\frac{d\tau}{d\theta}\right)_{min}\right|$ in $\text{N} \cdot \text{mm}/\text{rad}$ and energy variation $\Delta U$ in mJ:
 
 ```math
-\text{mass}_{\text{ERC}} = \max\left(0.14 \left|\left(\frac{d\tau}{d\theta}\right)_{min}\right|, \; 0.17 \Delta U, \; 25\right)
+\text{mass}_{\text{ERC}} = \max\left(0.14 \left|\left(\frac{d\tau}{d\theta}\right)_{min}\right|, \; 0.17 \Delta U, \; 25\right) \tag{13}
 ```
 
 Here, $\text{mass}_{\text{ERC}}$ is expressed as the maximum of three values. The first two represent ERCs sized for the two independent requirements defined by Eq. 1 and 2, and the third sets a minimum ERC mass of 25 g, which is necessary to guarantee sufficient structural integrity and out-of-plane stiffness. In the estimated ERC mass, the spring contributes approximately 5%. This mass model (Eq. 13) can be implemented in a simulation program to estimate the mass of any ERC joints (in g) from the target response. 

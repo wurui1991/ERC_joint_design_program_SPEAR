@@ -177,7 +177,7 @@ Here, $\text{mass}_{\text{ERC}}$ is expressed as the maximum of three values. Th
 
 When angular sensor is used (detailed in the next section), 10 g should be added to $\text{mass}_{\text{ERC}}$ to account for the mass of bearings (5 g), sensor (2 g), coupler, and bolts.
 
-It should be noted that when an ERC uses multiple springs, the spring length can be reduced, and thus the cams' mass. However, similar effects can be achieved by modifying the spring geometry, e.g., using a shorter spring with higher tension, which is beyond the scope of this simplified mass model.
+It should be noted that when an ERC uses multiple springs, the spring length can be reduced, and thus the cams' mass. In this case, the mass is evaluated based on $\left|\left(\frac{d\tau}{d\theta}\right)_ {min}\right|$ and $\Delta U$ divided by the number of springs, which is implemented in the design program.
 
 ---
 

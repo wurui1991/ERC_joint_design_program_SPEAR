@@ -108,7 +108,7 @@ annotation('textbox', [0, 0.75, 1, 0.08], ...
 
 % Start the loop
 while ishandle(figure_handle)
-    flush(s);
+    % flush(s);
     try
         readline(s); % Purge the first line
         data_line = readline(s); % Read data line

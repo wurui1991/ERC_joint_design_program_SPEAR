@@ -13,13 +13,16 @@
 
 %% INPUT
 
-Rtooth = 1.5; % tooth diameter (mm)
+Rtooth = 2; % tooth diameter (mm)
+Rtooth_tolerance = 0.05; % adding a small tolerance to tooth radius. Default: 0.05 mm
+% Formlabs durable resin at 0.1 mm layer thickness: 0.05 mm
+% Formlabs clear, Anycubic tough at 0.1 mm layer thickness: 0.025 mm
 gap = 2*Rtooth; % gap between tooth (mm); default: 2*Rtooth
 H = 30; % overall thickness [mm]
 Larm = 20; % depth of arm (e.g., the CFRP tube) mountng hole
 Rarm = 8; % inner radius of mountng hole
-R = 10; % outer radius around mounting hoSCRIP
-Rpivot = 4.5; % radius of spring pivot hole
+R = 10; % outer radius around mounting hole
+Rpivot = 4; % radius of spring pivot hole
 Rpivot2 = 2.5; % radius of spring pivot hole
 Rbearing = 5; % outer radius of bearing on the cam with sensor
 Hbearing = 3; % depth of bearing mounting hole
@@ -102,7 +105,7 @@ end
 % ERC with concave tooth
 toothall = concavetoothall; % initialise with concave tooth
 filename = 'concave.scr';
-Rtooth = Rtooth+0.05; % adding a small tolerance (0.05 mm) to tooth radius
+Rtooth = Rtooth+Rtooth_tolerance; 
 if sensorised == 1
     ERCscr_sensorised_concave % generate the AutoCAD .scr script
 else

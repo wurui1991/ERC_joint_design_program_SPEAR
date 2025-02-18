@@ -12,8 +12,8 @@
 
 %% Input 1/2: Design parameters
 SF = 2; % Target Safety Factor (SF), default = 2
-n_spring = 2; % Number of springs
-sensorised = 0; % Does the ERC has integrated angular sensor (potentiometer)? 1->Y, 0->N
+n_spring = 1; % Number of springs
+sensorised = 1; % Does the ERC has integrated angular sensor (potentiometer)? 1->Y, 0->N
 L_coupler = 5; % Length of coupler for senrorised ERC
 dtheta = 0.1*pi/180; % Resolution of cam design, default = 0.1*pi/180
 
@@ -22,13 +22,29 @@ dtheta = 0.1*pi/180; % Resolution of cam design, default = 0.1*pi/180
 %       2) M_EA, Target torque profile (N*m)
 % below are examples
 
-%%% Example 1
-% Rotation of one cam (1/2 of total bending), in radians
-Theta_EA = [-45 -44.9 -30 -15 0 0.1 15 30 44.9 45] * pi / 180;  
-% Target torque profile (N*m)
-M_EA = [-0.4 -0.035 0 -0.07 -0.035 0.035 0.07 0 0.035 0.4];  
+% %%% Example 1
+% Theta_EA=[-45 45]*pi/180;
+% M_EA=[-1 1]*0.25;
 
-% %%% Example 2
+%%% Example 2
+Theta_EA=[-45 -44.9 -0.1 0.1 44.9 45]*pi/180;
+M_EA=[-1 1 -1 1 -1 1]*0.1;
+
+% %%% Example 3
+% Theta_EA=[-45 -0.1 0.1 45]*pi/180;
+% M_EA=[-0.5 -0.5 0.5 0.5]*0.25;
+
+% %%% Example 4
+% Theta_EA=[-45 -0.1 0.1 45]*pi/180;
+% M_EA=[-0 -0.5 0.5 0]*0.25;
+
+%%% Example on repository
+% % Rotation of one cam (1/2 of total bending), in radians
+% Theta_EA = [-45 -44.9 -30 -15 0 0.1 15 30 44.9 45] * pi / 180;  
+% % Target torque profile (N*m)
+% M_EA = [-0.4 -0.035 0 -0.07 -0.035 0.035 0.07 0 0.035 0.4];  
+
+% %%% Live demo
 % M_max=0.05; % Target maximum moment (N*m)
 % Theta_EA=(-15:0.25:15);
 % M_EA=(15^2-Theta_EA.^2).^0.5/30+0.5; % torque (N*m)
@@ -38,9 +54,11 @@ M_EA = [-0.4 -0.035 0 -0.07 -0.035 0.035 0.07 0 0.035 0.4];
 % M_EA=[fliplr(-M_EA) M_EA]; % generate symmetrical profile
 % Theta_EA=[fliplr(-Theta_EA) Theta_EA]; % generate symmetrical profile
 
-% %%% Example 3
-% Theta_EA=[-45 45]*pi/180;
-% M_EA=[-1 1]*0.25;
+%%% X-drone 2025
+% Rotation of one cam (1/2 of total bending), in radians
+% Theta_EA = [0 0.1 5 30 34.9 35] * pi / 180;  
+% Target torque profile (N*m)
+% M_EA = [-0.6 0.21 0.21 0.07 0.07 0.8]; 
 
 %% Spring Requirement Evaluation
 
@@ -60,7 +78,7 @@ fprintf('   No. of springs (user defined):  %g \n', n_spring);
 fprintf('   Max length & tension:           L_max*T_max >= %.2g N*m (per spring)\n', 4 * M_slp/n_spring * SF);
 fprintf('   Max. elongation & tension:     ΔL_max*T_max >= %.2g N*m (per spring)\n\n', 2 * (max(DU) - min(DU))/n_spring * SF);
 fprintf('Mass model estimation (this is only a guideline, as spring selection is not unique):\n');
-fprintf('L_max: %.2g mm, coil diameter: %.2g mm, wire diameter: %.2g mm, ', D*10, D, D/5);
+fprintf('L_max: %.2g mm, coil diameter: %.2g mm, wire diameter: %.2g mm, ', D*10 + sensorised*L_coupler, D, D/5);
 fprintf('ERC mass: %.2g g\n', max(max(0.14 * M_slp/n_spring*1000, 0.17 * (max(DU) - min(DU))/n_spring*1000), 25)+sensorised*10);
 if sensorised == 1
     fprintf('Note: L_max includes the length of coupler, and ERC mass includes 10 g of sensor accesories\n\n');

@@ -12,20 +12,29 @@
 %% !! NOTE: run SpringElector.m first before you run this program
 
 %% INPUT: Spring properties
-%%% Type 5/1/1 from durovis.ch
-Lmax = (30.27+L_coupler*sensorised) /1000; % Spring max length (m)
-D_L_max = 15.87 /1000; % Spring max elongation (Tmax/k) (m)
-Tmax = 18.82 * n_spring; % Spring max tension * no. of springs (N)
 
-% %%% Type 8/1/1 from durovis.ch
-% Lmax = (38.5+L_coupler*sensorised) /1000; % Spring max length (m), including the length of coupler (if sensor integrated)
-% D_L_max = 20 /1000; % Spring max elongation (Tmax/k) (m)
-% Tmax = 35.09 * n_spring; % Spring max tension * no. of springs (N)
+%%% Type 8/1/1 from durovis.ch
+Lmax = (39.47+L_coupler*sensorised) /1000; % Spring max length (m), including the length of coupler (if sensor integrated)
+D_L_max = 20 /1000; % Spring max elongation (Tmax/k) (m)
+Tmax = 35.09 * n_spring; % Spring max tension * no. of springs (N)
+Tmin = 1.75 * n_spring; % Spring tension at rest * no. of springs (N), default = 0
+
+% %%% Type 7/1/1 from durovis.ch
+% Lmax = (35.56+L_coupler*sensorised) /1000; % Spring max length (m), including the length of coupler (if sensor integrated)
+% D_L_max = 18.36 /1000; % Spring max elongation (Tmax/k) (m)
+% Tmax = 28.88 * n_spring; % Spring max tension * no. of springs (N)
+% Tmin = 1.44 * n_spring; % Spring tension at rest * no. of springs (N), default = 0
+
+% %%% Type 5/1/1 from durovis.ch
+% Lmax = (28.27+L_coupler*sensorised) /1000; % Spring max length (m)
+% D_L_max = 15.07 /1000; % Spring max elongation (Tmax/k) (m)
+% Tmax = 18.82 * n_spring; % Spring max tension * no. of springs (N)
+% Tmin = 0.94 * n_spring; % Spring tension at rest * no. of springs (N), default = 0
 
 %% Derived spring parameters
-k=Tmax/D_L_max; % stiffness (N/m) * no. of springs
+k=(Tmax-Tmin)/D_L_max; % stiffness (N/m) * no. of springs
 Lmin=Lmax-D_L_max; % Spring's theoretical length at zero tension (m)
-Uspring=0.5*k*D_L_max^2; % spring energy capacity (J)
+Uspring=0.5*(Tmax+Tmin)*D_L_max; % spring energy capacity (J)
 
 %% Design initialisation
 
@@ -37,7 +46,7 @@ else
 end
 fprintf('\nSF achieved by the selected spring: %.3g\n\n', SF_achieved);
 if SF_achieved < 1
-    error('SF < 1, design can not proceed!');
+    error('SF < 1 (as achieved by the spring parameters input)!. Need a stronger/longer spring.');
 end
 
 U0 = Uspring-max(DU); % initial energy at theta(1) (J)

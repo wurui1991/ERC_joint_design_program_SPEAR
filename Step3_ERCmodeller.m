@@ -3,7 +3,7 @@
 %
 % Author: Rui Wu (rui.wu@usys.ethz.ch)
 %         Stefano Mintchev (stefano.mintchev@usys.ethz.ch)
-% Environmental Robotics Lab, ETH Zurich, 2024
+% Environmental Robotics Lab, ETH Zurich, 2025
 %
 % Funded by the Horizon Europe project in AI & robotics:
 % "SPEAR: Spatial Perception & Embodied Autonomy Research"

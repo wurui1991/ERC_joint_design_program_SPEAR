@@ -3,7 +3,7 @@
 %
 % Author: Rui Wu (rui.wu@usys.ethz.ch)
 %         Stefano Mintchev (stefano.mintchev@usys.ethz.ch)
-% Environmental Robotics Lab, ETH Zurich, 2024
+% Environmental Robotics Lab, ETH Zurich, 2025
 %
 % Funded by the Horizon Europe project in AI & robotics:
 % "SPEAR: Spatial Perception & Embodied Autonomy Research"
@@ -23,7 +23,13 @@ for i = 1:size(XY_mm, 2)
     fprintf(fileID, '%f,%f,%f\n', XY_mm(1, i), XY_mm(2, i), H / 2);
 end
 fprintf(fileID, 'c\n'); % Close the polyline
-fprintf(fileID, '_extrude\n_last\n\n%d\n', -1*H);
+fprintf(fileID, '_extrude\n_last\n\n%d\n', -1*H/3);
+
+fprintf(fileID, '_copy\n');  % Initiate move command
+fprintf(fileID, '_last\n');  % Select the last created object
+fprintf(fileID, '\n');  % Confirm selection
+fprintf(fileID, '0,0,0\n');  % Specify base point for move
+fprintf(fileID, '0,0,%f\n', -2*H/3);  % Specify second point (destination)
 
 % Spring pivot hole; Draw a circle at 0,0,H/2, with radius Rpivot, and extrude it -Z by H
 fprintf(fileID, '_circle 0,0,%f %f\n', H / 2, Rpivot);
@@ -52,7 +58,7 @@ fprintf(fileID, '_move\n');  % Initiate move command
 fprintf(fileID, '_last\n');  % Select the last created object
 fprintf(fileID, '\n');  % Confirm selection
 fprintf(fileID, '0,0,0\n');  % Specify base point for move
-fprintf(fileID, '%f,0,0\n', -L);  % Specify second point (destination)
+fprintf(fileID, '%f,0,0\n', -(Larm+2));  % Specify second point (destination)
 
 % Mounting outer perimeter; Draw a circle in the YZ plane at -L,0,0, radius R
 fprintf(fileID, 'ucs y\n\n'); % Align UCS to make drawing in YZ plane easier
@@ -62,7 +68,7 @@ fprintf(fileID, '_move\n');  % Initiate move command
 fprintf(fileID, '_last\n');  % Select the last created object
 fprintf(fileID, '\n');  % Confirm selection
 fprintf(fileID, '0,0,0\n');  % Specify base point for move
-fprintf(fileID, '%f,0,0\n', -L);  % Specify second point (destination)
+fprintf(fileID, '%f,0,0\n', -(Larm+2));  % Specify second point (destination)
 
 % Head rectangle; Draw polyline for [zeros(size(heady)); heady; headz]
 fprintf(fileID, '_3dpoly\n');
@@ -73,6 +79,17 @@ for i = 1:length(heady)
     end
 end
 fprintf(fileID, 'c\n'); % Close the polyline
+
+% Head slot
+fprintf(fileID, '_3dpoly\n');
+for i = 1:length(heady)
+    fprintf(fileID, '%f,%f,%f\n', headx(i), heady(i), headz(i)/3);
+    if i < length(heady)
+        fprintf(fileID, '%f,%f,%f\n', headx(i+1), heady(i+1), headz(i+1)/3);
+    end
+end
+fprintf(fileID, 'c\n'); % Close the polyline
+fprintf(fileID, '_extrude\n_last\n\n%d\n', -1*mean(headx(1:4))-L2+Larm-0.1);
 
 
 % Set facet resolution of .stl file to the maximum value (10)

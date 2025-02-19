@@ -3,7 +3,7 @@
 %
 % Author: Rui Wu (rui.wu@usys.ethz.ch)
 %         Stefano Mintchev (stefano.mintchev@usys.ethz.ch)
-% Environmental Robotics Lab, ETH Zurich, 2024
+% Environmental Robotics Lab, ETH Zurich, 2025
 %
 % Funded by the Horizon Europe project in AI & robotics:
 % "SPEAR: Spatial Perception & Embodied Autonomy Research"
@@ -44,7 +44,7 @@ if M_slp <= 0
 else
     SF_achieved = min((Tmax*Lmax)/4/M_slp,Uspring/(max(DU)-min(DU)));
 end
-fprintf('\nSF achieved by the selected spring: %.3g\n\n', SF_achieved);
+fprintf('\nSF achieved by the selected spring: %.3g\n', SF_achieved);
 if SF_achieved < 1
     error('SF < 1 (as achieved by the spring parameters input)!. Need a stronger/longer spring.');
 end
@@ -81,12 +81,15 @@ end
 % the actual energy curve achieved by the designed ERC
 U_actual = 0.5*(R*2-Lmin).^2*k; % energy
 % rotate the cam profile so the initial contact is on X axis
-remain = pi/2-(Theta_EA(end)-Theta_EA(1))/2; % angle to rotate
+% remain = pi/2-(Theta_EA(end)-Theta_EA(1))/2; % angle to rotate
+remain = pi/2-Theta_EA(end); % angle to rotate
 rot = [cos(remain) sin(remain); -sin(remain) cos(remain)];
 XY = rot*XY;
 
 
 %% Visualisation
+
+fprintf('\nMinimum spring tension: %.3g N\n', min(k*(R*2-Lmin)));
 
 figure % cam profile
 plot(XY(1,:)*1000,XY(2,:)*1000,'k','LineWidth', 1.5)

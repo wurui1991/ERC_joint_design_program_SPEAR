@@ -3,7 +3,7 @@
 %
 % Author: Rui Wu (rui.wu@usys.ethz.ch)
 %         Stefano Mintchev (stefano.mintchev@usys.ethz.ch)
-% Environmental Robotics Lab, ETH Zurich, 2024
+% Environmental Robotics Lab, ETH Zurich, 2025
 %
 % Funded by the Horizon Europe project in AI & robotics:
 % "SPEAR: Spatial Perception & Embodied Autonomy Research"
@@ -103,7 +103,7 @@ for i = 1:length(heady)
     end
 end
 fprintf(fileID, 'c\n'); % Close the polyline
-fprintf(fileID, '_extrude\n_last\n\n%d\n', -1*headx(1)-L+Larm-0.1);
+fprintf(fileID, '_extrude\n_last\n\n%d\n', -1*mean(headx)-L+Larm-0.1);
 
 % % Cosmetic cuts;
 % fprintf(fileID, 'ucs y\n\n'); % Align UCS to make drawing in YZ plane easier

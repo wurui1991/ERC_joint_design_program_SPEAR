@@ -4,7 +4,7 @@
 %
 % Author: Rui Wu (rui.wu@usys.ethz.ch)
 %         Stefano Mintchev (stefano.mintchev@usys.ethz.ch)
-% Environmental Robotics Lab, ETH Zurich, 2024
+% Environmental Robotics Lab, ETH Zurich, 2025
 %
 % Funded by the Horizon Europe project in AI & robotics:
 % "SPEAR: Spatial Perception & Embodied Autonomy Research"
@@ -22,13 +22,13 @@ dtheta = 0.1*pi/180; % Resolution of cam design, default = 0.1*pi/180
 %       2) M_EA, Target torque profile (N*m)
 % below are examples
 
-% %%% Example 1
-% Theta_EA=[-45 45]*pi/180;
-% M_EA=[-1 1]*0.25;
+%%% Example 1
+Theta_EA=[-45 45]*pi/180;
+M_EA=[-1 1]*0.25;
 
-%%% Example 2
-Theta_EA=[-45 -44.9 -0.1 0.1 44.9 45]*pi/180;
-M_EA=[-1 1 -1 1 -1 1]*0.1;
+% %%% Example 2
+% Theta_EA=[-45 -44.9 -0.1 0.1 44.9 45]*pi/180;
+% M_EA=[-1 1 -1 1 -1 1]*0.1;
 
 % %%% Example 3
 % Theta_EA=[-45 -0.1 0.1 45]*pi/180;
@@ -54,11 +54,17 @@ M_EA=[-1 1 -1 1 -1 1]*0.1;
 % M_EA=[fliplr(-M_EA) M_EA]; % generate symmetrical profile
 % Theta_EA=[fliplr(-Theta_EA) Theta_EA]; % generate symmetrical profile
 
+% %%% SquAshy 2025
+% % Rotation of one cam (1/2 of total bending), in radians
+% Theta_EA = [45 45.2 50 55:1:90 90.2]/2 * pi / 180;  
+% % Target torque profile (N*m)
+% M_EA = [-0.5 0.023 0.023 0.05*0.2*sin((55:1:90)*pi/180) 0.5]; 
+
 %%% X-drone 2025
 % Rotation of one cam (1/2 of total bending), in radians
-% Theta_EA = [0 0.1 5 30 34.9 35] * pi / 180;  
+Theta_EA = [45 45.1 50 75 79.9 80] * pi / 180;  
 % Target torque profile (N*m)
-% M_EA = [-0.6 0.21 0.21 0.07 0.07 0.8]; 
+M_EA = [-0.6 0.18 0.18 0.08 0.08 0.8]; 
 
 %% Spring Requirement Evaluation
 
